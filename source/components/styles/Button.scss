@@ -1,0 +1,10 @@
+$teal: #00bcd4;
+
+.btn-outline-primary {
+	color: $teal !important;
+	border-color: $teal !important;
+	&:hover {
+		color: #fff !important;
+		background-color: #teal !important;
+	}
+}

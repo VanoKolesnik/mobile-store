@@ -1,0 +1,28 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+$teal: #00bcd4;
+
+body {
+	min-height: 100vh;
+
+	font-family: "Open Sans", sans-serif;
+}
+main {
+	padding-top: 55px;
+}
+footer {
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	margin-top: 25px;
+}
+hr {
+	width: 100%;
+	max-width: 50px;
+
+	border: 2px solid $teal;
+}
+.text-teal {
+	color: $teal;
+}
