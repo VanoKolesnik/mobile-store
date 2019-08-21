@@ -6,3 +6,10 @@ $teal: #00bcd4;
 .nav-link:hover {
 	color: $teal !important;
 }
+.navbar-toggler {
+	border: none !important;
+}
+*:focus {
+	outline: none !important;
+	box-shadow: none !important;
+}

@@ -64,6 +64,12 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    contentBase: path.join(__dirname, "source"),
+    host: "localhost",
+    port: 3000,
+    hot: true
+  },
   plugins: [
     ...htmlPlugins,
     new ExtractTextPlugin("./styles/[name].css"),

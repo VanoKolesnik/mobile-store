@@ -2,6 +2,7 @@ import React, {Component} from "react"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
+import SearchPhone from "../components/SearchPhone.jsx"
 import FilterModal from "../components/FilterModal.jsx"
 import PhoneCard from "../components/PhoneCard.jsx"
 
@@ -80,20 +81,15 @@ class Catalog extends Component {
 			<div>
 				<Preloader />
 				<div className="d-flex
+								flex-column
+								flex-md-row
 								justify-content-around
 								align-items-center">
-					<div>
-						<nav aria-label="breadcrumb">
-							<ol className="breadcrumb bg-white rounded-0">
-								{this.state.breadCrumbData.map((data, id) => (
-									<Breadcrumb key={id} breadCrumbData={data} />
-								))}
-							</ol>
-						</nav>
-					</div>
+					<Breadcrumb />
+					<SearchPhone />
 					<FilterModal />
 				</div>
-				<div className="container-fluid row">
+				<div className="container-fluid row phonelist">
 					{this.state.phones.map((phone, id) => (
 						<div className="col-12
 										col-sm-6
