@@ -6,23 +6,12 @@ class Breadcrumb extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			breadCrumbData: [
-				{
-					id: 0,
-					locate: "Home",
-					urlLink: "#"
-				},
-				{
-					id: 1,
-					locate: "Catalog",
-					urlLink: "#"
-				}
-			]
+			breadCrumbData: this.props.data
 		}
 	}
 	render() {
 		return (
-			<div>
+			<>
 				<nav aria-label="breadcrumb">
 					<ol className="breadcrumb bg-white rounded-0">
 						{this.state.breadCrumbData.map((data, id) => (
@@ -30,7 +19,7 @@ class Breadcrumb extends Component {
 						))}
 					</ol>
 				</nav>
-			</div>
+			</>
 		)
 	}
 }

@@ -4,7 +4,7 @@ import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
 import SearchPhone from "../components/SearchPhone.jsx"
 import FilterModal from "../components/FilterModal.jsx"
-import PhoneCard from "../components/PhoneCard.jsx"
+import PhoneList from "../components/PhoneList.jsx"
 
 import "./styles/Catalog.scss"
 
@@ -16,14 +16,15 @@ class Catalog extends Component {
 				{
 					id: 0,
 					locate: "Home",
-					urlLink: "#"
+					urlLink: "/"
 				},
 				{
 					id: 1,
 					locate: "Catalog",
-					urlLink: "#"
+					urlLink: "/catalog"
 				}
 			],
+			filterText: "",
 			phones: [
 				{
 					id: 0,
@@ -75,33 +76,30 @@ class Catalog extends Component {
 				}
 			]
 		}
+		this.handelFilterText = this.handelFilterText.bind(this)
+	}
+	handelFilterText(filterText) {
+		this.setState({
+			filterText: filterText
+		})
 	}
 	render() {
 		return (
-			<div>
+			<>
 				<Preloader />
 				<div className="d-flex
 								flex-column
 								flex-md-row
 								justify-content-around
 								align-items-center">
-					<Breadcrumb />
-					<SearchPhone />
+					<Breadcrumb data={this.state.breadCrumbData} />
+					<SearchPhone 	filterText={this.state.filterText}
+									onFilterTextChange={this.handelFilterText} />
 					<FilterModal />
 				</div>
-				<div className="container-fluid row phonelist">
-					{this.state.phones.map((phone, id) => (
-						<div className="col-12
-										col-sm-6
-										col-md-3
-										mt-3"
-										key={id}>
-							<PhoneCard  phone={phone} />
-						</div>
-					))
-					}
-				</div>
-			</div>
+				<PhoneList 	phoneList={this.state.phones}
+							filterText={this.state.filterText} />
+			</>
 		)
 	}
 }

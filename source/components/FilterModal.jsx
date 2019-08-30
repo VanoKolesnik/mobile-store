@@ -1,25 +1,41 @@
 import React, {Component} from "react"
 
-import Filter from "./Filter.jsx"
-
-import "./styles/FilterModal.scss"
+import FilterCheckboxesGroup from "./FilterCheckboxesGroup.jsx"
+import FilterRange from "./FilterRange.jsx"
 
 class FilterModal extends Component {
-	constructor(props) {
-		super(props)
+	constructor() {
+		super()
 		this.state = {
-			filterData: [
+			filterGroupData: [
 				{
 					id: 0,
-					label: "Huawei"
+					title: "Виробник",
+					list: [
+						"Apple",
+						"Asus",
+						"Samsung",
+						"Honor",
+						"Huawei"
+					]
 				},
 				{
 					id: 1,
-					label: "Samsung"
+					title: "Діагональ екрана",
+					list: [
+						"до 4",
+						"4.1'' - 4.5''",
+						"4.5\" - 5\"",
+					]
 				},
 				{
 					id: 2,
-					label: "Xiaomi"
+					title: "Ємність акумулятора",
+					list: [
+						"до 2999 мА*год",
+						"3000 - 3999 мА*год",
+						"більше 4000 мА*год"
+					]
 				}
 			]
 		}
@@ -27,9 +43,11 @@ class FilterModal extends Component {
 	render() {
 		return (
 			<div>
-				<button type="button" className="btn btn-block btn-outline-primary rounded-0" data-toggle="modal" data-target="#filterModal">
+				<button type="button"
+						className="btn btn-block btn-outline-primary rounded-0"
+						data-toggle="modal" data-target="#filterModal">
 					👓 Фільтр
-			</button>
+				</button>
 				<div className="modal fade rounded-0" id="filterModal" tabIndex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
 					<div className="modal-dialog" role="document">
 						<form action="" className="modal-content rounded-0">
@@ -39,9 +57,11 @@ class FilterModal extends Component {
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
-							{this.state.filterData.map((data, id) => (
-								<Filter key={id} filterData={data} />
-							))}
+							<div className="modal-body">
+								<FilterRange />
+								{this.state.filterGroupData.map((groupData, id) =>
+									<FilterCheckboxesGroup key={id} filterGroupData={groupData} /> )}
+							</div>
 							<div className="modal-footer">
 								<button type="button" className="btn btn-secondary rounded-0" data-dismiss="modal">Закрити</button>
 								<button type="submit" className="btn btn-outline-primary rounded-0">Зберегти зміни</button>

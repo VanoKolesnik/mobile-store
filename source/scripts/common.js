@@ -7,6 +7,7 @@ import Footer from "../components/Footer.jsx"
 import "bootstrap/dist/js/bootstrap.min.js"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import scrollReveal from "scrollreveal"
+import "jquery"
 
 import "../styles/index.scss"
 import "normalize.css"

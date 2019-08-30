@@ -16,8 +16,10 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
     "express": "^4.17.1",
+    "ion-rangeslider": "^2.3.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "rc-slider": "^8.6.13",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "scrollreveal": "^4.0.5"

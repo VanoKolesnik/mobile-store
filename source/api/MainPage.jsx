@@ -11,13 +11,13 @@ import "./styles/MainPage.scss"
 class MainPage extends Component {
 	render() {
 		return (
-			<div>
+			<>
 				<Preloader />
 				<Cover />
 				<LatestPhones />
 				<ToShop />
 				<MailContact />
-			</div>
+			</>
 		)
 	}
 }
