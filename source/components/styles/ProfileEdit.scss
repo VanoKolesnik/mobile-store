@@ -1,0 +1,13 @@
+.profile-edit {
+	& ul {
+		list-style-type: none;
+	}
+	& ul li a {
+		color: #999 !important;
+		text-decoration: none;
+		cursor: pointer;
+		&:hover {
+			color: #111 !important;
+		}
+	}
+}

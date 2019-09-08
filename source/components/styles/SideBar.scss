@@ -1,0 +1,10 @@
+$teal: #00bcd4;
+
+.side-bar {
+	padding: 20px;
+	& li {
+		list-style-type: none;
+		margin-left: -20px;
+		margin-bottom: 5px;
+	}
+}

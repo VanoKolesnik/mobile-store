@@ -12,10 +12,13 @@ class PhoneList extends Component {
 		}
 	}
 	render() {
+		let isFound = false
 		return (
 			<div className="container-fluid row phonelist">
 				{this.state.phones.map((phone, id) => {
+						// TODO: Improve search engine.
 						if (phone.title.toLowerCase().indexOf(this.props.filterText) != -1 || this.props.filterText == "") {
+							isFound = true
 							return (
 									<div className="col-12
 													col-sm-6
@@ -23,10 +26,19 @@ class PhoneList extends Component {
 													mt-3"
 													key={id}>
 										<PhoneCard  phone={phone} />
-									</div>)
+									</div>
+								)
+							}
 						}
-					}
-				)}
+					)
+				}
+				{isFound ? (<></>) : (
+					<div className="container-fluid
+									d-flex
+									justify-content-center
+									align-items-center">
+						<h3>Телефон не знайдено. 🤔</h3>
+					</div> )}
 			</div>
 		)
 	}

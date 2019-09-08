@@ -22,19 +22,19 @@ class LatestPhones extends Component {
 					}]
 		}
 	}
-	getLatestPhones() {
-		axios.get("/latest-phones")
-			.then(res => this.setState({
-				latestPhones: res.data
-			}))
-			.catch(error => {
-				console.log(error)
-			})
-	}
+	// getLatestPhones() {
+	// 	axios.get("/latest-phones")
+	// 		.then(res => this.setState({
+	// 			latestPhones: res.data
+	// 		}))
+	// 		.catch(error => {
+	// 			console.log(error)
+	// 		})
+	// }
 
-	UNSAFE_componentWillMount() {
-		this.getLatestPhones()
-	}
+	// UNSAFE_componentWillMount() {
+	// 	this.getLatestPhones()
+	// }
 	render() {
 		return (
 			<section className="container-fluid

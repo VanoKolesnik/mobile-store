@@ -1,9 +1,9 @@
 const fs = require("fs")
 const path = require("path")
 
-function getFilesFromDir(dir, fileTypes) {
+const getFilesFromDir = (dir, fileTypes) => {
     const filesToReturn = []
-    function walkDir(currentPath) {
+    const walkDir = (currentPath) => {
         const files = fs.readdirSync(currentPath)
         for (let i in files) {
             const curFile = path.join(currentPath, files[i])

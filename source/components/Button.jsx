@@ -4,16 +4,26 @@ import React, {Component} from "react"
 
 import "./styles/Button.scss"
 
-const Link = (props) => {
-	return (
-		<a className="btn btn-block btn-outline-primary rounded-0" href="#!" role="button">{props.content}</a>
-	)
+class Link extends Component {
+	constructor(props) {
+		super(props)
+	}
+	render () {
+		return (
+			<a className="btn btn-block btn-outline-primary rounded-0" href={this.props.link} role="button">{this.props.content}</a>
+		)
+	}
 }
 
-const Bttn = (props) => {
-	return (
-		<button type={props.type} className="btn btn-block btn-outline-primary rounded-0">{props.content}</button>
-	)
+class Bttn extends Component {
+	constructor(props) {
+		super(props)
+	}
+	render () {
+		return (
+			<button type={this.props.type} className="btn btn-block btn-outline-primary rounded-0">{this.props.content}</button>
+		)
+	}
 }
 
 class Button extends Component {
@@ -25,9 +35,9 @@ class Button extends Component {
 	}
 	render() {
 		if (this.buttonType === "button") {
-			return <Bttn content={this.content} />
+			return <Bttn type={this.props.type} content={this.props.content} />
 		} else if (this.buttonType === "link") {
-			return <Link content={this.content} />
+			return <Link link={this.props.link} content={this.props.content} />
 		}
 	}
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "node ./server/server.js",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "dev": "webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,8 +21,7 @@
     "popper.js": "^1.15.0",
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "scrollreveal": "^4.0.5"
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

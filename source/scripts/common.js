@@ -6,8 +6,6 @@ import Footer from "../components/Footer.jsx"
 
 import "bootstrap/dist/js/bootstrap.min.js"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
-import scrollReveal from "scrollreveal"
-import "jquery"
 
 import "../styles/index.scss"
 import "normalize.css"
@@ -19,8 +17,3 @@ ReactDOM.render(
 ReactDOM.render(
 	<Footer />,
 	document.getElementById("footer") )
-
-const scrollRevealOptions = { delay: 250 }
-
-scrollReveal({ reset: false })
-scrollReveal().reveal('.shift', scrollRevealOptions)

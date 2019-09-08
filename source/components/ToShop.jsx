@@ -30,7 +30,7 @@ class ToShop extends Component {
 						<h2 className="text-secondary">Не чекай на запрошення! 🚫</h2>
 						<hr />
 						<h3 className="text-dark">Переходь до каталогу! 🏃‍♂</h3>
-						<Button content="КАТАЛОГ ТОВАРІВ" buttonType="link" />
+						<Button content="КАТАЛОГ ТОВАРІВ" link="/catalog" buttonType="link" />
 					</div>
 				</div>
 			</section>
