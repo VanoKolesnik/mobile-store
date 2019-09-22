@@ -1,4 +1,4 @@
-module.exports = (app, PAGE )=> {
+module.exports = (app, PAGE, query) => {
 	
 	app.get("/", (req, res) => {
 		res.sendFile(PAGE("index.html"))
@@ -16,6 +16,12 @@ module.exports = (app, PAGE )=> {
 		res.sendFile(PAGE("registration.html"))
 	})
 
+	app.get("/users", (req, res) => {
+		const userName = {
+			"userName": "qweqweqweqwe"
+		}
+		res.send(userName)
+	})
 	app.get("/latest-phones", (req, res) => {
 		const latestPhones = [
 					{

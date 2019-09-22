@@ -1,6 +1,7 @@
 const path = require("path")
 const express = require("express")
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser")
+const query = require("./querying/querying.js")
 
 const app = express()
 const port = process.env.PORT || 1337
@@ -10,11 +11,11 @@ const PAGE = (file) => {
 }
 
 app.use(express.static(DIST_DIR))
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.listen(port, () => 
 	console.log(`App listening on port: ${port}.`) )
 
-require("./routes/get.js")(app, PAGE)
-require("./routes/post.js")(app, PAGE)
+require("./routes/get.js")(app, PAGE, query)
+require("./routes/post.js")(app, PAGE, query)

@@ -1,10 +1,32 @@
 import React, {Component} from "react"
+import axios from "axios"
 
 import Preloader from "../components/Preloader.jsx"
 
 import "./styles/Contact.scss"
 
 class Catalog extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			userName: ""
+		}
+	}
+	
+	callApi() {
+		axios.get("https://localhost:1337/users")
+			.then(res => {
+				const userName = res.data
+				this.setState({ 
+					userName: userName
+				})
+			})
+	}
+
+	UNSAFE_componentWillMount() {
+		this.callApi()
+		console.log(this.state.userName)
+	}
 	render() {
 		return (
 			<div className="contact-block container
@@ -20,6 +42,7 @@ class Catalog extends Component {
 					<div className="col-6 text-center">
 						<a className="instagram" href="#">
 							<h3>Instagram</h3>
+							<h3>{this.state.userName}</h3>
 						</a>
 						<a className="facebook" href="#">
 							<h3>Facebook</h3>

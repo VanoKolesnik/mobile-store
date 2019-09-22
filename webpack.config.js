@@ -67,7 +67,7 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "source"),
     host: "localhost",
-    port: 1337,
+    port: 1338,
     hot: true
   },
   plugins: [
