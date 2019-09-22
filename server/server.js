@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const query = require("./querying/querying.js")
 
 const app = express()
-const port = process.env.PORT || 1337
+const port = process.env.port || 1337
 const DIST_DIR = path.join(__dirname, "../build")
 const PAGE = (file) => {
 	return path.join(DIST_DIR, "/pages/", file)
