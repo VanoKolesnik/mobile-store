@@ -12,19 +12,23 @@ class SideBar extends Component {
 			sideBarItems: [
 				{
 					content: "Переглянуті товари",
-					link: "#"
-				},
-				{
-					content: "Список бажань",
-					link: "#"
+					link: "#",
+					isAdmin: false
 				},
 				{
 					content: "Кошик",
-					link: "#"
+					link: "#",
+					isAdmin: false
 				},
 				{
 					content: "Мої замовлення",
-					link: "#"
+					link: "#",
+					isAdmin: false
+				},
+				{
+					content: "Додати товар",
+					link: "#",
+					isAdmin: true
 				}
 			]
 		}
@@ -35,11 +39,15 @@ class SideBar extends Component {
 							container-fluid
 							pt-5">
 				<ul className="row">
-					{this.state.sideBarItems.map((item, id) => (
-						<li key={id} className="col-12">
-							<Button content={item.content} link={item.link} buttonType="link" />
-						</li>
-					))}
+					{this.state.sideBarItems.map((item, id) => {
+						if (item.isAdmin) {
+							return (
+								<li key={id} className="col-12">
+									<a href={item.link}>{item.content}</a>
+								</li>
+							)
+						}
+					})}
 				</ul>
 			</div>
 		)

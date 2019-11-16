@@ -1,5 +1,23 @@
 module.exports = (app, PAGE, query) => {
-	
+	const {Client} = require("pg")
+	const db = new Client({
+		user: "postgres",
+		host: "localhost",
+		database: "mobile_store",
+		password: "postgres",
+		port: 5432
+	})
+	db.connect()
+	const SELECT = (target) => {
+		return new Promise((resolve, reject) => {
+			db.query(`SELECT * FROM ${target};`, (err, res) => {
+				if (err) reject(err)
+					resolve(res.rows)
+				})
+			}
+		)
+	}
+
 	app.get("/", (req, res) => {
 		res.sendFile(PAGE("index.html"))
 	})
@@ -15,14 +33,27 @@ module.exports = (app, PAGE, query) => {
 	app.get("/registration", (req, res) => {
 		res.sendFile(PAGE("registration.html"))
 	})
-
-	app.get("/users", (req, res) => {
-		const userName = {
-			"userName": "qweqweqweqwe"
-		}
-		res.send(userName)
+	app.get("/profile", (req, res) => {
+		res.sendFile(PAGE("profile.html"))
 	})
-	app.get("/latest-phones", (req, res) => {
+	app.get("/orders", (req, res) => {
+		res.sendFile(PAGE("orders.html"))
+	})
+	app.get("/viewedproducts", (req, res) => {
+		res.sendFile(PAGE("viewedproducts.html"))
+	})
+	app.get("/wishlist", (req, res) => {
+		res.sendFile(PAGE("wishlist.html"))
+	})
+
+	app.get("/select-users", (req, res) => {
+		Promise.all([SELECT("users")])
+			.then(_promises => {
+				let users = _promises
+				res.send(users[0])
+			})
+	})
+	app.get("/select-latest-phones", (req, res) => {
 		const latestPhones = [
 					{
 						id: 0,

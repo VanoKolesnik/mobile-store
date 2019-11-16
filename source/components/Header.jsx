@@ -8,26 +8,14 @@ let emojiList = [
 		]
 
 class Header extends Component {
-	// constructor(props) {
-	// 	super(props)
-	// 	this.state = {
-	// 		responce: ""
-	// 	}
-	// }
-	
-	// callApi() {
-	// 	fetch(`http://localhost:1337/`)
-	// 		.then(res => res.text())
-	// 		.then(res => this.setState({
-	// 			responce: res
-	// 		}))
-	// 		.catch(err => err)
-	// }
-
-	// componentDidMount() {
-	// 	this.callApi()
-	// }
-
+	constructor() {
+		super()
+		this.handleLogout = this.handleLogout.bind(this)
+	}
+	handleLogout() {
+		sessionStorage.clear()
+		location.reload()
+	}
 	render() {
 		return (
 			<nav className="navbar
@@ -58,12 +46,25 @@ class Header extends Component {
 						<li className="nav-item ml-auto">
 							<a className="nav-link" href="/contact">💌 Контакти</a>
 						</li>
-						<li className="nav-item ml-auto">
-							<a className="nav-link" href="/login">🚪 Увійти</a>
-						</li>
-						<li className="nav-item ml-auto">
-							<a className="nav-link" href="/registration">✍ Зареєструватися</a>
-						</li>
+						{sessionStorage.getItem("userId") === null ? (
+							<>
+								<li className="nav-item ml-auto">
+									<a className="nav-link" href="/login">🚪 Увійти</a>
+								</li>
+								<li className="nav-item ml-auto">
+									<a className="nav-link" href="/registration">✍ Зареєструватися</a>
+								</li>
+							</>
+						) : (
+							<>
+								<li className="nav-item ml-auto">
+									<a className="nav-link" href="/profile">📂 Профіль</a>
+								</li>
+								<li className="nav-item ml-auto">
+									<a className="nav-link" href="#" onClick={this.handleLogout}>❎ Вийти</a>
+								</li>
+							</>
+						)}
 					</ul>
 				</div>
 			</nav>

@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 
 import Preloader from "../components/Preloader.jsx"
+import Breadcrumb from "../components/Breadcrumb.jsx"
 import PhoneList from "../components/PhoneList.jsx"
 
 import "./styles/Orders.scss"
@@ -9,6 +10,23 @@ class Orders extends Component {
 	constructor() {
 		super()
 		this.state = {
+			breadcrumbPath: [
+				{
+					id: 0,
+					locate: "Головна",
+					urlLink: "/"
+				},
+				{
+					id: 1,
+					locate: "Профіль",
+					urlLink: "/profile"
+				},
+				{
+					id: 2,
+					locate: "Замовлення",
+					urlLink: "/orders"
+				}
+			],
 			phones:  [
 				{
 					id: 0,
@@ -66,6 +84,7 @@ class Orders extends Component {
 			<div>
 				<Preloader />
 				
+				<Breadcrumb path={this.state.breadcrumbPath} />
 				<PhoneList  phoneList={this.state.phones}
 							filterText={""} />
 			</div>

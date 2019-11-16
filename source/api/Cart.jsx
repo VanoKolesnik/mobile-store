@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 
 import Preloader from "../components/Preloader.jsx"
+import Breadcrumb from "../components/Breadcrumb.jsx"
 import PhoneList from "../components/PhoneList.jsx"
 
 import "./styles/Cart.scss"
@@ -9,6 +10,18 @@ class Cart extends Component {
 	constructor() {
 		super()
 		this.state = {
+			breadcrumbPath: [
+				{
+					id: 0,
+					locate: "Головна",
+					urlLink: "/"
+				},
+				{
+					id: 1,
+					locate: "Кошик",
+					urlLink: "/cart"
+				}
+			],
 			phones:  [
 				{
 					id: 0,
@@ -66,6 +79,7 @@ class Cart extends Component {
 			<div>
 				<Preloader />
 				
+				<Breadcrumb path={this.state.breadcrumbPath} />
 				<PhoneList  phoneList={this.state.phones}
 							filterText={""} />
 			</div>

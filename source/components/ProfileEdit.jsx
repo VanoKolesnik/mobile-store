@@ -21,10 +21,6 @@ class ProfileEdit extends Component {
 					</li>
 					<li className="	col-4
 									col-md-12">
-						<a href="#">Змінити пароль</a>
-					</li>
-					<li className="	col-4
-									col-md-12">
 						<a href="#">Вихід</a>
 					</li>
 				</ul>

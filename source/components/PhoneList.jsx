@@ -17,7 +17,8 @@ class PhoneList extends Component {
 			<div className="container-fluid row phonelist">
 				{this.state.phones.map((phone, id) => {
 						// TODO: Improve search engine.
-						if (phone.title.toLowerCase().indexOf(this.props.filterText) != -1 || this.props.filterText == "") {
+						if (phone.title.toLowerCase().indexOf(this.props.filterText.toLowerCase()) != -1 
+						|| this.props.filterText === "") {
 							isFound = true
 							return (
 									<div className="col-12

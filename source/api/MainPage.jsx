@@ -9,6 +9,12 @@ import MailContact from "../components/MailContact.jsx"
 import "./styles/MainPage.scss"
 
 class MainPage extends Component {
+	constructor() {
+		super()
+		this.state = {
+			apiURL: "http://localhost:1337"
+		}
+	}
 	render() {
 		return (
 			<>

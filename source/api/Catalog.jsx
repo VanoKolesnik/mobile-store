@@ -2,7 +2,7 @@ import React, {Component} from "react"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
-import SearchPhone from "../components/SearchPhone.jsx"
+import Search from "../components/Search.jsx"
 import FilterModal from "../components/FilterModal.jsx"
 import PhoneList from "../components/PhoneList.jsx"
 
@@ -12,15 +12,15 @@ class Catalog extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			breadCrumbData: [
+			breadcrumbPath: [
 				{
 					id: 0,
-					locate: "Home",
+					locate: "Головна",
 					urlLink: "/"
 				},
 				{
 					id: 1,
-					locate: "Catalog",
+					locate: "Каталог",
 					urlLink: "/catalog"
 				}
 			],
@@ -87,13 +87,14 @@ class Catalog extends Component {
 		return (
 			<>
 				<Preloader />
+				
+				<Breadcrumb path={this.state.breadcrumbPath} />
 				<div className="d-flex
 								flex-column
 								flex-md-row
 								justify-content-around
 								align-items-center">
-					<Breadcrumb data={this.state.breadCrumbData} />
-					<SearchPhone 	filterText={this.state.filterText}
+					<Search 	filterText={this.state.filterText}
 									onFilterTextChange={this.handelFilterText} />
 					<FilterModal />
 				</div>
