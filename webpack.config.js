@@ -1,12 +1,11 @@
 const path = require("path")
 const CopyPlugin = require("copy-webpack-plugin")
-const HtmlWebPackPlugin = require("html-webpack-plugin")
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 const entry = require("./config/entry.js")
 const htmlPlugins = require("./config/htmlPlugins.js")
-const getFilesFromDir = require("./config/getFilesFromDir.js")
 
 module.exports = {
   entry: entry,

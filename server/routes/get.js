@@ -1,10 +1,10 @@
 module.exports = (app, PAGE, query) => {
 	const {Client} = require("pg")
 	const db = new Client({
-		user: "postgres",
-		host: "localhost",
-		database: "mobile_store",
-		password: "postgres",
+		host: "ec2-54-247-72-30.eu-west-1.compute.amazonaws.com",
+		database: "d3ebri13f0dtnt",
+		user: "izgmaknrmyyaxr",
+		password: "fa6848671fd47284da59f4f583a92fa840cc36873968a227631d6f8698bb27b0",
 		port: 5432
 	})
 	db.connect()
