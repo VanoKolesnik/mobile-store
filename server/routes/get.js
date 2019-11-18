@@ -5,7 +5,8 @@ module.exports = (app, PAGE, query) => {
 		database: "d3ebri13f0dtnt",
 		user: "izgmaknrmyyaxr",
 		password: "fa6848671fd47284da59f4f583a92fa840cc36873968a227631d6f8698bb27b0",
-		port: 5432
+		port: 5432,
+		ssl: true
 	})
 	db.connect()
 	const SELECT = (target) => {

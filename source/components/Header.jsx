@@ -58,6 +58,9 @@ class Header extends Component {
 						) : (
 							<>
 								<li className="nav-item ml-auto">
+									<a className="nav-link" href="/card">🏷 Кошик</a>
+								</li>
+								<li className="nav-item ml-auto">
 									<a className="nav-link" href="/profile">📂 Профіль</a>
 								</li>
 								<li className="nav-item ml-auto">
