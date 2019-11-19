@@ -25,7 +25,7 @@ class Cart extends Component {
 			phones:  [
 				{
 					id: 0,
-					title: "Huawei P30 Pro 8",
+					title: "Huawei P30 Pro",
 					price: "25 000",
 					imageSource: "../images/products/huawei_p30_pro8.jpg"
 				},
@@ -82,6 +82,15 @@ class Cart extends Component {
 				<Breadcrumb path={this.state.breadcrumbPath} />
 				<PhoneList  phoneList={this.state.phones}
 							filterText={""} />
+				{sessionStorage.getItem("userId") === null ? (
+					<div className="continer-fluid text-center">
+						<h1 className="text-danger">404</h1>
+					</div>
+				) : (
+					<div>
+
+					</div>
+				)}
 			</div>
 		)
 	}

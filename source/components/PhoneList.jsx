@@ -8,14 +8,13 @@ class PhoneList extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			phones: this.props.phoneList
 		}
 	}
 	render() {
 		let isFound = false
 		return (
 			<div className="container-fluid row phonelist">
-				{this.state.phones.map((phone, id) => {
+				{this.props.phoneList.map((phone, id) => {
 						// TODO: Improve search engine.
 						if (phone.title.toLowerCase().indexOf(this.props.filterText.toLowerCase()) != -1 
 						|| this.props.filterText === "") {

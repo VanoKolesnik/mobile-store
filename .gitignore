@@ -1,8 +1,15 @@
-# Node Modules
+# PROD
 /node_modules
 
-# Build 
-/build
+/config
 
-# .gitignore
+/source
+
 .gitignore
+
+.babelrc
+
+.webpack.config.js
+
+# DEV
+# /build

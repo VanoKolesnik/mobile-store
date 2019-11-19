@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import axios from "axios"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
@@ -12,6 +13,7 @@ class Catalog extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
+			apiURL: "http://localhost:1337",
 			breadcrumbPath: [
 				{
 					id: 0,
@@ -28,55 +30,78 @@ class Catalog extends Component {
 			phones: [
 				{
 					id: 0,
-					title: "Huawei P30 Pro 8",
-					price: "25 000",
-					imageSource: "../images/products/huawei_p30_pro8.jpg"
-				},
-				{
-					id: 1,
-					title: "Samsung Galaxy M20",
-					price: "28 000",
-					imageSource: "../images/products/samsung_galaxy_m20.jpg"
-				},
-				{
-					id: 2,
-					title: "Samsung Galaxy S10",
-					price: "40 000",
-					imageSource: "../images/products/samsung_galaxy_s10.jpg"
-				},
-				{
-					id: 3,
-					title: "Xiaomi Redmi Note 7",
-					price: "24 000",
-					imageSource: "../images/products/xiaomi_redmi_note_7.jpg"
-				},
-				{
-					id: 4,
-					title: "Huawei P30 Pro 8",
-					price: "25 000",
-					imageSource: "../images/products/huawei_p30_pro8.jpg"
-				},
-				{
-					id: 5,
-					title: "Samsung Galaxy M20",
-					price: "28 000",
-					imageSource: "../images/products/samsung_galaxy_m20.jpg"
-				},
-				{
-					id: 6,
-					title: "Samsung Galaxy S10",
-					price: "40 000",
-					imageSource: "../images/products/samsung_galaxy_s10.jpg"
-				},
-				{
-					id: 7,
-					title: "Xiaomi Redmi Note 7",
-					price: "24 000",
-					imageSource: "../images/products/xiaomi_redmi_note_7.jpg"
+					title: "",
+					description: "",
+					price: 0,
+					quantity: 0,
+					imageSource: "",
+					manufacture: "",
+					country: "",
+					communicationStandart: "",
+					diagonal: "",
+					displayResolution: "",
+					fromCamera: "",
+					backCamera: "",
+					ram: "",
+					internalMemory: "",
+					operationSystem: ""
 				}
 			]
 		}
 		this.handelFilterText = this.handelFilterText.bind(this)
+		axios.get(`${this.state.apiURL}/select-products`)
+            .then(res => {
+                res.data.map((product, id) => {
+                    if (id === 0) {
+                        this.setState({
+							phones: [
+								{
+									id: product.id,
+									title: product.title,
+									description: product.description,
+									price: product.price,
+									quantity: product.quantity,
+									imageSource: `../images/products/${product.imgURL}`,
+									manufacture: product.manufactererId,
+									country: product.countryOfManufactureId,
+									communicationStandart: product.communicationStandartId,
+									diagonal: product.diagonalId,
+									displayResolution: product.displayResolutionId,
+									frontCamera: product.frontCameraId,
+									backCamera: product.backCameraId,
+									ram: product.RAMId,
+									internalMemory: product.internalMemoryId,
+									operationSystem: product.operationSystemId
+								}
+							]
+						})
+					} else {
+                        this.setState(prevState => ({
+                            phones: [
+								...prevState.phones,
+								{
+									id: product.id,
+									title: product.title,
+									description: product.description,
+									price: product.price,
+									quantity: product.quantity,
+									imageSource: `../images/products/${product.imgURL}`,
+									manufacture: product.manufactererId,
+									country: product.countryOfManufactureId,
+									communicationStandart: product.communicationStandartId,
+									diagonal: product.diagonalId,
+									displayResolution: product.displayResolutionId,
+									frontCamera: product.frontCameraId,
+									backCamera: product.backCameraId,
+									ram: product.RAMId,
+									internalMemory: product.internalMemoryId,
+									operationSystem: product.operationSystemId
+								}
+							]
+                        }))
+                    }
+				})
+			})
 	}
 	handelFilterText(filterText) {
 		this.setState({
@@ -95,7 +120,7 @@ class Catalog extends Component {
 								justify-content-around
 								align-items-center">
 					<Search 	filterText={this.state.filterText}
-									onFilterTextChange={this.handelFilterText} />
+								onFilterTextChange={this.handelFilterText} />
 					<FilterModal />
 				</div>
 				<PhoneList 	phoneList={this.state.phones}

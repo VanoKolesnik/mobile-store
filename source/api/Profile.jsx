@@ -83,7 +83,7 @@ class Profile extends Component {
 
 				<Breadcrumb path={this.state.breadcrumbPath} />
 				{sessionStorage.getItem("userId") === null ? (
-					<div className="row text-center">
+					<div className="continer-fluid text-center">
 						<h1 className="text-danger">404</h1>
 					</div>
 				) : (

@@ -18,7 +18,7 @@ module.exports = (app, PAGE, query) => {
 			}
 		)
 	}
-
+	
 	app.get("/", (req, res) => {
 		res.sendFile(PAGE("index.html"))
 	})
@@ -37,6 +37,9 @@ module.exports = (app, PAGE, query) => {
 	app.get("/profile", (req, res) => {
 		res.sendFile(PAGE("profile.html"))
 	})
+	app.get("/product", (req, res) => {
+		res.sendFile(PAGE("product.html"))
+	})
 	app.get("/orders", (req, res) => {
 		res.sendFile(PAGE("orders.html"))
 	})
@@ -54,6 +57,86 @@ module.exports = (app, PAGE, query) => {
 				res.send(users[0])
 			})
 	})
+	app.get("/select-products", (req, res) => {
+		Promise.all([SELECT("products")])
+			.then(_promises => {
+				let products = _promises
+				res.send(products[0])
+			})
+	})
+
+	app.get("/select-manufacture", (req, res) => {
+		Promise.all([SELECT("manufacture")])
+			.then(_promises => {
+				let manufacture = _promises
+				res.send(manufacture[0])
+			})
+	})
+	app.get("/select-country", (req, res) => {
+		Promise.all([SELECT("country_of_manufacture")])
+			.then(_promises => {
+				let country = _promises
+				res.send(country[0])
+			})
+	})
+	app.get("/select-communicationStandart", (req, res) => {
+		Promise.all([SELECT("communication_standarts")])
+			.then(_promises => {
+				let communicationStandart = _promises
+				res.send(communicationStandart[0])
+			})
+	})
+	app.get("/select-diagonal", (req, res) => {
+		Promise.all([SELECT("diagonal")])
+			.then(_promises => {
+				let diagonal = _promises
+				res.send(diagonal[0])
+			})
+	})
+	app.get("/select-displayResolution", (req, res) => {
+		Promise.all([SELECT("display_resolution")])
+			.then(_promises => {
+				let displayResolution = _promises
+				res.send(displayResolution[0])
+			})
+	})
+	app.get("/select-frontCamera", (req, res) => {
+		Promise.all([SELECT("front_camera")])
+			.then(_promises => {
+				let frontCamera = _promises
+				res.send(frontCamera[0])
+			})
+	})
+	app.get("/select-backCamera", (req, res) => {
+		Promise.all([SELECT("back_camera")])
+			.then(_promises => {
+				let backCamera = _promises
+				res.send(backCamera[0])
+			})
+	})
+	app.get("/select-ram", (req, res) => {
+		Promise.all([SELECT("ram")])
+			.then(_promises => {
+				let ram = _promises
+				res.send(ram[0])
+			})
+	})
+	app.get("/select-internalMemory", (req, res) => {
+		Promise.all([SELECT("internal_memory")])
+			.then(_promises => {
+				let internalMemory = _promises
+				res.send(internalMemory[0])
+			})
+	})
+	app.get("/select-operationSystem", (req, res) => {
+		Promise.all([SELECT("operation_system")])
+			.then(_promises => {
+				let operationSystem = _promises
+				res.send(operationSystem[0])
+			})
+	})
+
+
 	app.get("/select-latest-phones", (req, res) => {
 		const latestPhones = [
 					{

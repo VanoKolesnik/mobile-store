@@ -11,12 +11,12 @@ class PhoneCard extends Component {
 		this.handleCardClick = this.handleCardClick.bind(this)
 	}
 	handleCardClick(e) {
-		console.log(e.target.value)
+		localStorage.setItem("selectedProduct", e.currentTarget.getAttribute("value"))
 	}
 	render() {
 		return (
-			<a href="#" className="card" onClick={this.handleCardClick}>
-				<img src={this.props.phone.imageSource} className="card-img-top" alt={this.props.phone.title} value={this.props.phone.id} onChange={() => {}} />
+			<a href="#" className="card" onClick={this.handleCardClick} value={this.props.phone.id}>
+				<img src={this.props.phone.imageSource} className="card-img-top" alt={this.props.phone.title} />
 				<div className="card-body">
 					<div className="card-text">
 						<div className="row">
