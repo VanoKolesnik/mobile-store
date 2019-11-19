@@ -165,7 +165,6 @@ class Product extends Component {
             .then(res => {
                 res.data.map((item, id) => {
                     if (+item.id === +this.state.product.ram) {
-                        console.log(item.Mb)
                         this.setState(prevState => ({
                             product: {
                                 ...prevState.product,

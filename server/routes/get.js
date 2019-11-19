@@ -1,4 +1,4 @@
-module.exports = (app, PAGE, query) => {
+module.exports = (app, PAGE) => {
 	const {Client} = require("pg")
 	const db = new Client({
 		host: "ec2-54-247-72-30.eu-west-1.compute.amazonaws.com",
