@@ -7,7 +7,7 @@ class SideBar extends Component {
 	constructor() {
 		super()
 		this.state = {
-			apiURL: "http://localhost:1337",
+			apiURL: "https://ancient-depths-61345.herokuapp.com",
 			user: {
 				id: "",
 				name: "",

@@ -6,7 +6,7 @@ class PhoneCard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			apiURL: "http://localhost:1337"
+			apiURL: "https://ancient-depths-61345.herokuapp.com"
 		}
 		this.handleCardClick = this.handleCardClick.bind(this)
 	}
