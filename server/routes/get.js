@@ -18,7 +18,15 @@ module.exports = (app, PAGE) => {
 			}
 		)
 	}
-	
+	const SELECT_LAST_ORDER = (target) => {
+		return new Promise((resolve, reject) => {
+			db.query(`SELECT * FROM ${target} WHERE id=(SELECT MAX(id) FROM ${target});`, (err, res) => {
+				if (err) reject(err)
+					resolve(res.rows)
+				})
+			}
+		)
+	}
 	app.get("/", (req, res) => {
 		res.sendFile(PAGE("index.html"))
 	})
@@ -40,8 +48,8 @@ module.exports = (app, PAGE) => {
 	app.get("/product", (req, res) => {
 		res.sendFile(PAGE("product.html"))
 	})
-	app.get("/orders", (req, res) => {
-		res.sendFile(PAGE("orders.html"))
+	app.get("/order", (req, res) => {
+		res.sendFile(PAGE("order.html"))
 	})
 	app.get("/viewedproducts", (req, res) => {
 		res.sendFile(PAGE("viewedproducts.html"))
@@ -135,8 +143,13 @@ module.exports = (app, PAGE) => {
 				res.send(operationSystem[0])
 			})
 	})
-
-
+	app.get("/last-order-id", (req, res) => {
+		Promise.all([SELECT_LAST_ORDER("orders")])
+			.then(_promises => {
+				let orderId = _promises
+				res.send(orderId[0])
+			})
+	})
 	app.get("/select-latest-phones", (req, res) => {
 		const latestPhones = [
 					{

@@ -1,8 +1,9 @@
 import React, {Component} from "react"
+import axios from "axios"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
-import PhoneList from "../components/PhoneList.jsx"
+import PhoneCard from "../components/PhoneCard.jsx"
 
 import "./styles/Cart.scss"
 
@@ -10,6 +11,7 @@ class Cart extends Component {
 	constructor() {
 		super()
 		this.state = {
+			apiURL: "http://localhost:1337",
 			breadcrumbPath: [
 				{
 					id: 0,
@@ -22,57 +24,80 @@ class Cart extends Component {
 					urlLink: "/cart"
 				}
 			],
-			phones:  [
+			phones: [
 				{
 					id: 0,
-					title: "Huawei P30 Pro",
-					price: "25 000",
-					imageSource: "../images/products/huawei_p30_pro8.jpg"
-				},
-				{
-					id: 1,
-					title: "Samsung Galaxy M20",
-					price: "28 000",
-					imageSource: "../images/products/samsung_galaxy_m20.jpg"
-				},
-				{
-					id: 2,
-					title: "Samsung Galaxy S10",
-					price: "40 000",
-					imageSource: "../images/products/samsung_galaxy_s10.jpg"
-				},
-				{
-					id: 3,
-					title: "Xiaomi Redmi Note 7",
-					price: "24 000",
-					imageSource: "../images/products/xiaomi_redmi_note_7.jpg"
-				},
-				{
-					id: 4,
-					title: "Huawei P30 Pro 8",
-					price: "25 000",
-					imageSource: "../images/products/huawei_p30_pro8.jpg"
-				},
-				{
-					id: 5,
-					title: "Samsung Galaxy M20",
-					price: "28 000",
-					imageSource: "../images/products/samsung_galaxy_m20.jpg"
-				},
-				{
-					id: 6,
-					title: "Samsung Galaxy S10",
-					price: "40 000",
-					imageSource: "../images/products/samsung_galaxy_s10.jpg"
-				},
-				{
-					id: 7,
-					title: "Xiaomi Redmi Note 7",
-					price: "24 000",
-					imageSource: "../images/products/xiaomi_redmi_note_7.jpg"
+					title: "",
+					description: "",
+					price: 0,
+					quantity: 0,
+					imageSource: "",
+					manufacture: "",
+					country: "",
+					communicationStandart: "",
+					diagonal: "",
+					displayResolution: "",
+					fromCamera: "",
+					backCamera: "",
+					ram: "",
+					internalMemory: "",
+					operationSystem: ""
 				}
 			]
 		}
+		axios.get(`${this.state.apiURL}/select-products`)
+            .then(res => {
+                res.data.map((product, id) => {
+                    if (id === 0) {
+                        this.setState({
+							phones: [
+								{
+									id: product.id,
+									title: product.title,
+									description: product.description,
+									price: product.price,
+									quantity: product.quantity,
+									imageSource: `../images/products/${product.imgURL}`,
+									manufacture: product.manufactererId,
+									country: product.countryOfManufactureId,
+									communicationStandart: product.communicationStandartId,
+									diagonal: product.diagonalId,
+									displayResolution: product.displayResolutionId,
+									frontCamera: product.frontCameraId,
+									backCamera: product.backCameraId,
+									ram: product.RAMId,
+									internalMemory: product.internalMemoryId,
+									operationSystem: product.operationSystemId
+								}
+							]
+						})
+					} else {
+                        this.setState(prevState => ({
+                            phones: [
+								...prevState.phones,
+								{
+									id: product.id,
+									title: product.title,
+									description: product.description,
+									price: product.price,
+									quantity: product.quantity,
+									imageSource: `../images/products/${product.imgURL}`,
+									manufacture: product.manufactererId,
+									country: product.countryOfManufactureId,
+									communicationStandart: product.communicationStandartId,
+									diagonal: product.diagonalId,
+									displayResolution: product.displayResolutionId,
+									frontCamera: product.frontCameraId,
+									backCamera: product.backCameraId,
+									ram: product.RAMId,
+									internalMemory: product.internalMemoryId,
+									operationSystem: product.operationSystemId
+								}
+							]
+                        }))
+                    }
+				})
+			})
 	}
 	render() {
 		return (
@@ -80,17 +105,28 @@ class Cart extends Component {
 				<Preloader />
 				
 				<Breadcrumb path={this.state.breadcrumbPath} />
-				<PhoneList  phoneList={this.state.phones}
-							filterText={""} />
 				{sessionStorage.getItem("userId") === null ? (
 					<div className="continer-fluid text-center">
 						<h1 className="text-danger">404</h1>
 					</div>
 				) : (
-					<div>
-
+					<div className="container-fluid row phonelist">
+						{JSON.parse(localStorage.getItem("cartItems")).map(item => {
+							return this.state.phones.map(phone => {
+								if (+item === +phone.id) {
+									return (
+										<div className="col-12 col-sm-6 col-md-3 mt-3" key={phone.id}>
+											<PhoneCard phone={phone} />
+										</div>
+									)
+								}
+							})
+						})}
 					</div>
 				)}
+				<div className="container-fluid row mt-5">
+					<a href={`${this.state.apiURL}/order`} className="btn btn-block btn-outline-primary rounded-0 col-6 offset-3">Придбати</a>
+				</div>
 			</div>
 		)
 	}

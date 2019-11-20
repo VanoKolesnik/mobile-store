@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server/server.js"
+    "start": "node ./server/server.js",
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server"
   },
   "keywords": [],
   "author": "Vano",
   "license": "ISC",
   "dependencies": {
+    "@rocketseat/unform": "^1.6.1",
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
@@ -22,7 +25,8 @@
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "simple-react-validator": "^1.2.4"
+    "simple-react-validator": "^1.2.4",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

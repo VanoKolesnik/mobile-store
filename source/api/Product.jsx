@@ -202,17 +202,17 @@ class Product extends Component {
             })
     }
     handleAddToCard(e) {
-        let cardItems = JSON.parse(localStorage.getItem("cardItems")),
+        let cartItems = JSON.parse(localStorage.getItem("cartItems")),
             isExists = true
-        cardItems.map((item, id) => {
+        cartItems.map((item, id) => {
             if (+item === +e.target.value) {
                 isExists = false
             }
         })
         if (isExists) {
-            cardItems.push(e.target.value)
+            cartItems.push(e.target.value)
         }
-        localStorage.setItem("cardItems", JSON.stringify(cardItems))
+        localStorage.setItem("cartItems", JSON.stringify(cartItems))
     }
 	render() {
 		return (
@@ -242,7 +242,7 @@ class Product extends Component {
                                 </div>
                             </div>
                             <div className="col-6 offset-3">
-                                <button className="btn btn-block btn-outline-primary rounded-0" value={this.state.product.id} onClick={this.handleAddToCard}>Придбати</button>
+                                <button className="btn btn-block btn-outline-primary rounded-0" value={this.state.product.id} onClick={this.handleAddToCard}>У кошик</button>
                             </div>
                         </div>
                     </div>
