@@ -98,35 +98,43 @@ class Cart extends Component {
                     }
 				})
 			})
-	}
+		}
 	render() {
 		return (
 			<div>
 				<Preloader />
 				
 				<Breadcrumb path={this.state.breadcrumbPath} />
-				{sessionStorage.getItem("userId") === null ? (
-					<div className="continer-fluid text-center">
-						<h1 className="text-danger">404</h1>
+				{JSON.parse(localStorage.getItem("cartItems"))[0] == "0" ? (
+					<div className="container-fluid text-center">
+						<p>Кошик порожній</p>
 					</div>
 				) : (
-					<div className="container-fluid row phonelist">
-						{JSON.parse(localStorage.getItem("cartItems")).map(item => {
-							return this.state.phones.map(phone => {
-								if (+item === +phone.id) {
-									return (
-										<div className="col-12 col-sm-6 col-md-3 mt-3" key={phone.id}>
-											<PhoneCard phone={phone} />
-										</div>
-									)
-								}
-							})
-						})}
-					</div>
+					<>
+						{sessionStorage.getItem("userId") === null ? (
+							<div className="continer-fluid text-center">
+								<h1 className="text-danger">404</h1>
+							</div>
+						) : (
+							<div className="container-fluid row phonelist">
+								{JSON.parse(localStorage.getItem("cartItems")).map(item => {
+									return this.state.phones.map(phone => {
+										if (+item === +phone.id) {
+											return (
+												<div className="col-12 col-sm-6 col-md-3 mt-3" key={phone.id}>
+													<PhoneCard phone={phone} />
+												</div>
+											)
+										}
+									})
+								})}
+							</div>
+						)}
+						<div className="container-fluid row mt-5">
+							<a href={`${this.state.apiURL}/order`} className="btn btn-block btn-outline-primary rounded-0 col-6 offset-3">Придбати</a>
+						</div>
+					</>
 				)}
-				<div className="container-fluid row mt-5">
-					<a href={`${this.state.apiURL}/order`} className="btn btn-block btn-outline-primary rounded-0 col-6 offset-3">Придбати</a>
-				</div>
 			</div>
 		)
 	}
