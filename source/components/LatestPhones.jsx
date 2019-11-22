@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-// import axios from "axios"
+import axios from "axios"
 
 import PhoneCard from "./PhoneCard.jsx"
 import "./styles/LatestPhones.scss"
@@ -8,19 +8,47 @@ class LatestPhones extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			latestPhones: [{
-						id: 0,
-						title: "Huawei P30 Pro 8",
-						price: "25 000",
-						imageSource: "../images/products/huawei_p30_pro8.jpg"
-					},
-					{
-						id: 1,
-						title: "Samsung Galaxy M20",
-						price: "28 000",
-						imageSource: "../images/products/samsung_galaxy_m20.jpg"
-					}]
+			apiURL: "https://ancient-depths-61345.herokuapp.com",
+			latestPhones: [
+				{
+					id: "",
+					title: "",
+					price: "0",
+					imageSource: ""
+				}
+			]
 		}
+		axios.get(`${this.state.apiURL}/select-products`)
+            .then(res => {
+				let products = res.data.splice(res.data.length - 2, 2)
+
+                products.map((product, id) => {
+                    if (id === 0) {
+                        this.setState({
+							latestPhones: [
+								{
+									id: product.id,
+									title: product.title,
+									price: product.price,
+									imageSource: `../images/products/${product.imgURL}`,
+								}
+							]
+						})
+					} else {
+                        this.setState(prevState => ({
+                            latestPhones: [
+								...prevState.latestPhones,
+								{
+									id: product.id,
+									title: product.title,
+									price: product.price,
+									imageSource: `../images/products/${product.imgURL}`,
+								}
+							]
+                        }))
+                    }
+				})
+			})
 	}
 	render() {
 		return (

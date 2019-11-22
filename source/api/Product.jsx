@@ -54,17 +54,17 @@ class Product extends Component {
                                 description: product.description,
                                 price: product.price,
                                 quantity: product.quantity,
-                                imageSource: `../images/products/${product.imgURL}`,
-                                manufacture: product.manufactererId,
-                                country: product.countryOfManufactureId,
-                                communicationStandart: product.communicationStandartId,
-                                diagonal: product.diagonalId,
-                                displayResolution: product.displayResolutionId,
-                                frontCamera: product.frontCameraId,
-                                backCamera: product.backCameraId,
-                                ram: product.RAMId,
-                                internalMemory: product.internalMemoryId,
-                                operationSystem: product.operationSystemId
+                                imageSource: `../images/products/${product.imgurl}`,
+                                manufacture: product.manufactererid,
+                                country: product.countryofmanufactureid,
+                                communicationStandart: product.communicationstandartid,
+                                diagonal: product.diagonalid,
+                                displayResolution: product.displayresolutionid,
+                                frontCamera: product.frontcameraid,
+                                backCamera: product.backcameraid,
+                                ram: product.ramid,
+                                internalMemory: product.internalmemoryid,
+                                operationSystem: product.operationsystemid
 							}
 						})
 					}
@@ -204,6 +204,9 @@ class Product extends Component {
     handleAddToCard(e) {
         let cartItems = JSON.parse(localStorage.getItem("cartItems")),
             isExists = true
+        if (cartItems[0] === "0") {
+            cartItems = []
+        }
         cartItems.map((item, id) => {
             if (+item === +e.target.value) {
                 isExists = false

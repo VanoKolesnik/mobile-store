@@ -1,8 +1,5 @@
 import React, {Component} from "react"
 
-import Preloader from "./Preloader.jsx"
-import Button from "./Button.jsx"
-
 import "./styles/ProfileEdit.scss"
 
 class ProfileEdit extends Component {

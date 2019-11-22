@@ -57,6 +57,9 @@ module.exports = (app, PAGE) => {
 	app.get("/wishlist", (req, res) => {
 		res.sendFile(PAGE("wishlist.html"))
 	})
+	app.get("/add-product", (req, res) => {
+		res.sendFile(PAGE("addproduct.html"))
+	})
 
 	app.get("/select-users", (req, res) => {
 		Promise.all([SELECT("users")])

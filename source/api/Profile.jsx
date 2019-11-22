@@ -48,7 +48,7 @@ class Profile extends Component {
 		axios.get(`${this.state.apiURL}/select-users`)
 			.then(res => {
 				res.data.map(user => {
-					if (user.id === sessionStorage.getItem("userId")) {
+					if (+user.id === +sessionStorage.getItem("userId")) {
 						this.setState({
 							user: {
 								id: user.id,

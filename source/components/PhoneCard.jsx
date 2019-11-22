@@ -15,7 +15,7 @@ class PhoneCard extends Component {
 	}
 	render() {
 		return (
-			<a href="#" className="card" onClick={this.handleCardClick} value={this.props.phone.id}>
+			<a href={`${this.state.apiURL}/product`} className="card" onClick={this.handleCardClick} value={this.props.phone.id}>
 				<img src={this.props.phone.imageSource} className="card-img-top" alt={this.props.phone.title} />
 				<div className="card-body">
 					<div className="card-text">

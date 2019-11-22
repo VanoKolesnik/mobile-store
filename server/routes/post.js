@@ -9,7 +9,7 @@ module.exports = app => {
 		ssl: true
 	})
 	db.connect()
-	const INSERT_USER = (user) => {
+	const INSERT_USER = user => {
 		return new Promise((resolve, reject) => {
 			db.query(`INSERT INTO users(
 						id, name, mail, role, password)
@@ -20,7 +20,7 @@ module.exports = app => {
 			}
 		)
 	}
-	const UPDATE_USER = (user) => {
+	const UPDATE_USER = user => {
 		return new Promise((resolve, reject) => {
 			db.query(`UPDATE users
 						SET name='${user.name}', lastname='${user.lastname}', patronymic='${user.patronymic}', mail='${user.mail}', phone='${user.phone}', gender='${user.gender}', country='${user.country}', district='${user.district}', city='${user.city}', street='${user.street}', house_number=${+user.houseNumber}, apartment_number=${+user.apartmentNumber}
@@ -31,7 +31,7 @@ module.exports = app => {
 			}
 		)
 	}
-	const INSERT_PRODUCTLIST = (target) => {
+	const INSERT_PRODUCTLIST = target => {
 		target.map(item => {
 			return new Promise((resolve, reject) => {
 				db.query(`INSERT INTO product_list(
@@ -44,11 +44,22 @@ module.exports = app => {
 			)
 		})
 	}
-	const INSERT_ORDER = (item) => {
+	const INSERT_ORDER = item => {
 		return new Promise((resolve, reject) => {
 			db.query(`INSERT INTO orders(
 						id, userId, productListId, price, comment, isCompleted)
 						VALUES ((SELECT MAX(id) FROM orders) + 1, '${item.userId}', 0, 0, '', false);`, (err, res) => {
+				if (err) reject(err)
+					resolve(res)
+				})
+			}
+		)
+	}
+	const INSERT_PRODUCT = item => {
+		return new Promise((resolve, reject) => {
+			db.query(`INSERT INTO products(
+						id, title, description, price, quantity, imgURL, manufactererId, countryOfManufactureId, communicationStandartId, diagonalId, displayResolutionId, frontCameraId, backCameraId, RAMId, internalMemoryId, operationSystemId)
+						VALUES ((SELECT MAX(id) FROM products) + 1, '${item.title}', '${item.description}', ${+item.price}, ${+item.quantity}, '${item.imageSource}', ${item.manufacturers}, ${item.countries}, ${item.communicationStandarts}, ${item.diagonals}, ${item.resolutions}, ${item.frontCameras}, ${item.backCameras}, ${item.rams}, ${item.internalMemories}, ${item.operationSystems});`, (err, res) => {
 				if (err) reject(err)
 					resolve(res)
 				})
@@ -75,5 +86,21 @@ module.exports = app => {
 				res.status(200).end() })
 			.catch(err => {
 				console.log(err) })
+	})
+	app.post("/insert-product", (req, res) => {		
+		Promise.all([INSERT_PRODUCT(req.body.product)])
+			.then(result => {
+				res.status(200).end() })
+			.catch(err => {
+				console.log(err) })
+	})
+	app.post("/upload-product-image", (req, res) => {
+		const 	imageFile = req.files.file,
+				imageName = req.body.filename
+		
+		imageFile.mv(`./source/images/products/${imageName}`)
+		imageFile.mv(`./build/images/products/${imageName}`)
+
+		res.status(200).end()
 	})
 }

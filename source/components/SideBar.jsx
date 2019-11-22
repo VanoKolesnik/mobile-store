@@ -27,12 +27,12 @@ class SideBar extends Component {
 			sideBarItems: [
 				{
 					content: "Кошик",
-					link: "#",
+					link: "/cart",
 					isAdmin: false
 				},
 				{
 					content: "Додати товар",
-					link: "#",
+					link: "/add-product",
 					isAdmin: true
 				}
 			]

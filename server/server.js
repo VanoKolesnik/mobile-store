@@ -1,6 +1,7 @@
 const path = require("path")
 const express = require("express")
 const bodyParser = require("body-parser")
+const fileUpload = require("express-fileupload")
 
 const app = express()
 const port = process.env.PORT || 1337
@@ -12,6 +13,7 @@ const PAGE = (file) => {
 app.use(express.static(DIST_DIR))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(fileUpload())
 
 app.listen(port, () => 
 	console.log(`App listening on port: ${port}.`) )
