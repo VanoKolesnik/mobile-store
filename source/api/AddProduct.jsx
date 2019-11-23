@@ -9,7 +9,7 @@ class AddProduct extends Component {
 	constructor() {
 		super()
 		this.state = {
-            apiURL: "http://localhost:1337",
+            apiURL: "https://ancient-depths-61345.herokuapp.com",
             product: {
                 id: 0,
                 title: "",

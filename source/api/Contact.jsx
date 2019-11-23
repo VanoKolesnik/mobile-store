@@ -25,21 +25,6 @@ class Catalog extends Component {
 			userName: ""
 		}
 	}
-	
-	callApi() {
-		axios.get("https://localhost:1337/users")
-			.then(res => {
-				const userName = res.data
-				this.setState({ 
-					userName: userName
-				})
-			})
-	}
-
-	UNSAFE_componentWillMount() {
-		this.callApi()
-		console.log(this.state.userName)
-	}
 	render() {
 		return (
 			<>
