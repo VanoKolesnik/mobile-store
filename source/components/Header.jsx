@@ -1,4 +1,6 @@
 import React, {Component} from "react"
+import * as $ from "jquery"
+import toasty from "toasty"
 
 import "./styles/Header.scss"
 
@@ -12,6 +14,9 @@ class Header extends Component {
 		super()
 		this.handleLogout = this.handleLogout.bind(this)
 	}
+	toasty() {
+		const t = toasty().trigger()
+	}
 	handleLogout() {
 		sessionStorage.clear()
 		location.reload()
@@ -24,7 +29,7 @@ class Header extends Component {
 							fixed-top
 							bg-light
 							shadow">
-				<a className="navbar-brand" href="/">Mobile Store {emojiList[Math.floor(Math.random() * emojiList.length)]}</a>
+				<a className="navbar-brand" href="/">Mobile Store</a> <span className="toasty" onClick={this.toasty}>{emojiList[Math.floor(Math.random() * emojiList.length)]}</span>
 				<button className="navbar-toggler" type="button"
 					data-toggle="collapse"
 					data-target="#navbarSupportedContent"

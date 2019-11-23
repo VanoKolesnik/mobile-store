@@ -1,15 +1,13 @@
 # PROD
 /node_modules
 
-/config
+# /config
 
-/source
+# /source
 
-.gitignore
+# .babelrc
 
-.babelrc
-
-.webpack.config.js
+# .webpack.config.js
 
 # DEV
-# /build
+/build
