@@ -1,4 +1,4 @@
-module.exports = app => {
+module.exports = (app, emailServer) => {
 	const {Client} = require("pg")
 	const db = new Client({
 		host: "ec2-54-247-72-30.eu-west-1.compute.amazonaws.com",
@@ -102,5 +102,21 @@ module.exports = app => {
 		imageFile.mv(`./build/images/products/${imageName}`)
 
 		res.status(200).end()
+	})
+	app.post("/send-feedback", (req, res) => {
+		const 	name = req.body.data.name,
+				email = req.body.data.email,
+				message = req.body.data.message
+
+		emailServer.send({
+			text:    `Sender: ${name}.\nEmail: ${email}\n\n${message}`,
+			from:    "Admin <mobile.store.feedback@gmail.com>",
+			to:      "Admin <mobile.store.feedback@gmail.com>",
+			subject: "Feedback from the mobile-store."
+		 }, err => { 
+			if (err) {
+				res.sendStatus(505) } 
+			else {
+				res.sendStatus(200) }})
 	})
 }

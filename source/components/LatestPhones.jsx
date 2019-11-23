@@ -30,7 +30,7 @@ class LatestPhones extends Component {
 									id: product.id,
 									title: product.title,
 									price: product.price,
-									imageSource: `../images/products/${product.imgURL}`,
+									imageSource: `../images/products/${product.imgurl}`,
 								}
 							]
 						})
@@ -42,7 +42,7 @@ class LatestPhones extends Component {
 									id: product.id,
 									title: product.title,
 									price: product.price,
-									imageSource: `../images/products/${product.imgURL}`,
+									imageSource: `../images/products/${product.imgurl}`,
 								}
 							]
                         }))
