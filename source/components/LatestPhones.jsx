@@ -20,7 +20,7 @@ class LatestPhones extends Component {
 		}
 		axios.get(`${this.state.apiURL}/select-products`)
             .then(res => {
-				let products = res.data.splice(res.data.length - 2, 2)
+				let products = res.data.splice(res.data.length - 3, 3)
 
                 products.map((product, id) => {
                     if (id === 0) {

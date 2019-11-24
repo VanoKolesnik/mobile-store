@@ -60,6 +60,9 @@ module.exports = (app, PAGE) => {
 	app.get("/add-product", (req, res) => {
 		res.sendFile(PAGE("addproduct.html"))
 	})
+	app.get("/cart", (req, res) => {
+		res.sendFile(PAGE("cart.html"))
+	})
 
 	app.get("/select-users", (req, res) => {
 		Promise.all([SELECT("users")])

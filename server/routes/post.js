@@ -55,11 +55,11 @@ module.exports = (app, emailServer) => {
 			}
 		)
 	}
-	const INSERT_PRODUCT = item => {
+	const INSERT_PRODUCT = (item, imageSource) => {
 		return new Promise((resolve, reject) => {
 			db.query(`INSERT INTO products(
 						id, title, description, price, quantity, imgURL, manufactererId, countryOfManufactureId, communicationStandartId, diagonalId, displayResolutionId, frontCameraId, backCameraId, RAMId, internalMemoryId, operationSystemId)
-						VALUES ((SELECT MAX(id) FROM products) + 1, '${item.title}', '${item.description}', ${+item.price}, ${+item.quantity}, '${item.imageSource}', ${item.manufacturers}, ${item.countries}, ${item.communicationStandarts}, ${item.diagonals}, ${item.resolutions}, ${item.frontCameras}, ${item.backCameras}, ${item.rams}, ${item.internalMemories}, ${item.operationSystems});`, (err, res) => {
+						VALUES ((SELECT MAX(id) FROM products) + 1, '${item.title}', '${item.description}', ${+item.price}, ${+item.quantity}, '${imageSource}', ${item.manufacturers}, ${item.countries}, ${item.communicationStandarts}, ${item.diagonals}, ${item.resolutions}, ${item.frontCameras}, ${item.backCameras}, ${item.rams}, ${item.internalMemories}, ${item.operationSystems});`, (err, res) => {
 				if (err) reject(err)
 					resolve(res)
 				})
@@ -69,39 +69,44 @@ module.exports = (app, emailServer) => {
 	app.post("/update-user", (req, res) => {
 		Promise.all([UPDATE_USER(req.body.user)])
 			.then(result => {
-				res.status(200).end() })
+				res.sendStatus(200) })
 			.catch(err => {
 				console.log(err) }) 
 	})
 	app.post("/insert-user", (req, res) => {
 		Promise.all([INSERT_USER(req.body.user)])
 			.then(result => {
-				res.status(200).end() })
+				res.sendStatus(200) })
 			.catch(err => {
 				console.log(err) })
 	})
 	app.post("/insert-order", (req, res) => {
 		Promise.all([UPDATE_USER(req.body.user), INSERT_PRODUCTLIST(req.body.productList), INSERT_ORDER(req.body.order)])
 			.then(result => {
-				res.status(200).end() })
+				res.sendStatus(200) })
 			.catch(err => {
 				console.log(err) })
 	})
-	app.post("/insert-product", (req, res) => {		
-		Promise.all([INSERT_PRODUCT(req.body.product)])
+	app.post("/insert-product", (req, res) => {
+		Promise.all([INSERT_PRODUCT(req.body.product, req.body.imageSource)])
 			.then(result => {
-				res.status(200).end() })
+				res.sendStatus(200) })
 			.catch(err => {
-				console.log(err) })
+				console.error(err)
+				res.sendStatus(500) })
 	})
 	app.post("/upload-product-image", (req, res) => {
 		const 	imageFile = req.files.file,
 				imageName = req.body.filename
 		
-		imageFile.mv(`./source/images/products/${imageName}`)
-		imageFile.mv(`./build/images/products/${imageName}`)
-
-		res.status(200).end()
+		try {
+			imageFile.mv(`./source/images/products/${imageName}`)
+			imageFile.mv(`./build/images/products/${imageName}`)
+		} catch(error) {
+			console.error(error)
+			res.sendStatus(500)
+		}
+		res.sendStatus(200)
 	})
 	app.post("/send-feedback", (req, res) => {
 		const 	name = req.body.data.name,
@@ -112,10 +117,10 @@ module.exports = (app, emailServer) => {
 			text:    `Sender: ${name}.\nEmail: ${email}\n\n${message}`,
 			from:    "Admin <mobile.store.feedback@gmail.com>",
 			to:      "Admin <mobile.store.feedback@gmail.com>",
-			subject: "Feedback from the mobile-store."
-		 }, err => { 
+			subject: "Feedback from the mobile-store." },
+		err => { 
 			if (err) {
-				res.sendStatus(505) } 
+				res.sendStatus(500) } 
 			else {
 				res.sendStatus(200) }})
 	})

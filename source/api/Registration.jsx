@@ -1,8 +1,10 @@
 import React, {Component} from "react"
 import SimpleReactValidator from "simple-react-validator"
 import axios from "axios"
+import displayNotify from "../components/displayNotify.js"
 
 import Preloader from "../components/Preloader.jsx"
+import { ToastContainer } from "react-toastify"
 
 import "./styles/Registration.scss"
 
@@ -59,10 +61,12 @@ class Registration extends Component {
 			if (this.state.data.password === this.state.data.secondPassword) {
 				axios.post(`${this.state.apiURL}/insert-user`, {
 					user: this.state.data })
-					.then(res =>
-						location.reload() )
-					.catch(err =>
-						console.log(`POST | ${this.state.apiURL}/insert-user is faild. Error: ${err}`) )
+					.then(res => {
+						displayNotify("success", "Реєстрація пройшла успішно")
+						location = `${this.state.apiURL}/login` })
+					.catch(error => {
+						displayNotify("error", "Сталася помилка на сервері")
+						console.error(error) })
 			}
 		} else {
 			this.validator.showMessages()
@@ -100,6 +104,7 @@ class Registration extends Component {
 					</div>
 					<button className="btn btn-block btn-outline-primary rounded-0" onClick={this.handleRegistration}>Зареєструватися ✍</button>
 				</div>
+				<ToastContainer />
 			</div>
 		)
 	}

@@ -1,10 +1,12 @@
 import React, {Component} from "react"
 import axios from "axios"
 import * as Yup from "yup"
+import displayNotify from "../components/displayNotify.js"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
 import { Form, Input } from "@rocketseat/unform"
+import { ToastContainer } from "react-toastify"
 
 import "./styles/Orders.scss"
 
@@ -155,15 +157,19 @@ class Orders extends Component {
 			}
 		}
 		if (isValid) {
-			localStorage.setItem("cartItems", JSON.stringify(["0"]))
 			axios.post(`${this.state.apiURL}/insert-order`, {
 				user: this.state.user,
 				productList: this.state.productList,
 				order: this.state.order	})
-				.then(res => {
-					location.reload() })
-				.cath(error => {
-					console.log(err) })
+				.then(responce => {
+					localStorage.setItem("cartItems", JSON.stringify([]))
+					displayNotify("success", "Замовлення прийняте")
+					location = this.state.apiURL })
+				.catch(error => {
+					displayNotify("error", "Сталася помилка на сервері"),
+					console.error(error) })
+		} else {
+			displayNotify("warn", "Перевірте введені дані")
 		}
 	}
 	render() {
@@ -172,7 +178,11 @@ class Orders extends Component {
 				<Preloader />
 				
 				<Breadcrumb path={this.state.breadcrumbPath} />
-				{JSON.parse(localStorage.getItem("cartItems") === ["0"]) ? (
+				{JSON.parse(localStorage.getItem("cartItems") === null) ? (
+					<div className="container-fluid">
+						<div className="col-12 text-center">Додайте товар до кошику. 😄</div>
+					</div>
+				) : (
 					<Form onSubmit={this.handleOnSubmit} schema={schema} initialData={this.state.user} className="container-fluid">
 						<div className="row col-6 offset-3 d-flex flex-row justify-content-between mb-3">
 							<label className="col-4" htmlFor="name">Ім'я</label>
@@ -221,11 +231,8 @@ class Orders extends Component {
 
 						<button type="submit" className="col-6 offset-3 btn btn-block btn-outline-primary rounded-0" onClick={this.handleOnSubmit}>Підтвердити</button>
 					</Form>
-				) : (
-					<div className="container-fluid">
-						<div className="col-12 text-center">Додайте товар до кошику. 😄</div>
-					</div>
 				)}
+				<ToastContainer />
 			</div>
 		)
 	}

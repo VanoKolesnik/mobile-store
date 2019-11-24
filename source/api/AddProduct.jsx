@@ -1,9 +1,10 @@
 import React, {Component} from "react"
 import axios from "axios"
-import * as Yup from "yup"
+import displayNotify from "../components/displayNotify.js"
 
 import Preloader from "../components/Preloader.jsx"
 import { Form, Input, Select } from "@rocketseat/unform"
+import { ToastContainer } from "react-toastify"
 
 class AddProduct extends Component {
 	constructor() {
@@ -374,19 +375,20 @@ class AddProduct extends Component {
                 data = new FormData()
         data.append("file", file)
         data.append("filename", fileName === "" ? file.name.replace(/\.(gif|jpeg|png)$/, ".jpg") : fileName)
-        this.setState(prevState => ({
-            product: {
-                ...prevState.product,
-                imageSource: fileName === "" ? file.name.toLowerCase().replace(/ /g, "-").replace(/\.(gif|jpeg|png)$/, ".jpg") : fileName
-            }
-        }))
         axios.post(`${this.state.apiURL}/upload-product-image`, data)
-            .then((response) => {
-                console.log(response) })
+            .then(response => {
+                displayNotify("success", "Зображення завантажено на сервер") })
+            .catch(error => {
+                displayNotify("error", "Помилка під час завантаження зображення на сервер") 
+                console.error(error) })          
         axios.post(`${this.state.apiURL}/insert-product`, {
-            product: this.state.product })
-            .then((response) => {
-                console.log(response) })
+            product: this.state.product,
+            imageSource: fileName === "" ? file.name.toLowerCase().replace(/ /g, "-").replace(/\.(gif|jpeg|png)$/, ".jpg") : fileName })
+            .then(response => {
+                displayNotify("success", "Товар додано") })
+            .catch(error => {
+                displayNotify("error", "Помилка під час додавання товару") 
+                console.error(error) })
     }
 	render() {
 		return (
@@ -459,6 +461,7 @@ class AddProduct extends Component {
 
                     <button type="submit" className="col-6 offset-3 btn btn-block btn-outline-primary rounded-0">Додати</button>
                 </Form>
+                <ToastContainer />
 			</div>
 		)
 	}

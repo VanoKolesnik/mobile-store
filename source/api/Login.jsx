@@ -1,8 +1,10 @@
 import React, {Component} from "react"
 import md5 from "md5"
 import axios from "axios"
+import displayNotify from "../components/displayNotify.js"
 
 import Preloader from "../components/Preloader.jsx"
+import { ToastContainer } from "react-toastify"
 
 import "./styles/Login.scss"
 
@@ -23,7 +25,6 @@ class Login extends Component {
 				name: "",
 				password: ""
 			},
-			isValid: false
 		}
 		this.handleInput = this.handleInput.bind(this)
 		this.handleLogin = this.handleLogin.bind(this)
@@ -69,17 +70,21 @@ class Login extends Component {
 		}))
 	}
 	handleLogin() {
-		let auth = this.state.authData
+		let auth = this.state.authData,
+			isValid = false
 		this.state.users.map(user => {
 			if (auth.name === user.name
 				&& md5(auth.password) === user.password) {
-				this.setState({
-					isValid: true
-				})
+				isValid = true
 				sessionStorage.setItem("userId", user.id)
-				location.reload()
+				location = `${this.state.apiURL}/`
 			}
 		})
+		if (isValid) {
+			displayNotify("success", "Вітаю! Ви увійшли")
+		} else {
+			displayNotify("error", "Перевірте введені дані")
+		}
 	}
 	render() {
 		return (
@@ -90,11 +95,6 @@ class Login extends Component {
 							align-items-center">
 				<Preloader />
 				<div>
-					{this.state.isValid ? (
-						<div className="alert alert-success text-center">
-							Вітаю! Ви увійшли!
-						</div>
-					) : null}
 					<div className="form-group">
 						<label htmlFor="usernameInput">Ім'я користувача</label>
 						<input type="text" className="form-control rounded-0" id="usernameInput" placeholder="Username" name="name" value={this.state.authData.name} onChange={this.handleInput} />
@@ -103,8 +103,9 @@ class Login extends Component {
 						<label htmlFor="passwordInput">Пароль</label>
 						<input type="password" className="form-control rounded-0" id="passwordInput" placeholder="Password" name="password" value={this.state.authData.password} onChange={this.handleInput} />
 					</div>
-					<button className="btn btn-block btn-outline-secondary rounded-0" onClick={(this.handleLogin)}>Увійти 🚪</button>
+					<button className="btn btn-block btn-outline-secondary rounded-0" onClick={this.handleLogin}>Увійти 🚪</button>
 				</div>
+				<ToastContainer />
 			</div>
 		)
 	}

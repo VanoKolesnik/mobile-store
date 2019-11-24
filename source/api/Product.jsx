@@ -1,8 +1,10 @@
 import React, {Component} from "react"
 import axios from "axios"
+import displayNotify from "../components/displayNotify.js"
 
 import Preloader from "../components/Preloader.jsx"
 import Breadcrumb from "../components/Breadcrumb.jsx"
+import { ToastContainer } from "react-toastify"
 
 import "./styles/Product.scss"
 
@@ -204,16 +206,21 @@ class Product extends Component {
     handleAddToCard(e) {
         let cartItems = JSON.parse(localStorage.getItem("cartItems")),
             isExists = true
-        if (cartItems[0] === "0") {
+        if (cartItems === null ||
+            cartItems === undefined) {
             cartItems = []
+        } else {
+            cartItems.map(item => {
+                if (+item === +e.target.value) {
+                    isExists = false
+                }
+            })
         }
-        cartItems.map((item, id) => {
-            if (+item === +e.target.value) {
-                isExists = false
-            }
-        })
         if (isExists) {
             cartItems.push(e.target.value)
+            displayNotify("success", "Товар додано у кошик")
+        } else {
+            displayNotify("warn", "Товар вже знаходиться у кошику")
         }
         localStorage.setItem("cartItems", JSON.stringify(cartItems))
     }
@@ -292,6 +299,7 @@ class Product extends Component {
                         <div className="col-6 col-lg-6">{this.state.product.operationSystem}</div>
                     </div>
                 </div>
+                <ToastContainer />
 			</div>
 		)
 	}

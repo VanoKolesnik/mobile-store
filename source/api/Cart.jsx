@@ -105,7 +105,7 @@ class Cart extends Component {
 				<Preloader />
 				
 				<Breadcrumb path={this.state.breadcrumbPath} />
-				{JSON.parse(localStorage.getItem("cartItems"))[0] == "0" ? (
+				{JSON.parse(localStorage.getItem("cartItems")) === null ? (
 					<div className="container-fluid text-center">
 						<p>Кошик порожній</p>
 					</div>

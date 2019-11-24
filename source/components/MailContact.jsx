@@ -1,5 +1,8 @@
 import React, {Component} from "react"
 import axios from "axios"
+import displayNotify from "./displayNotify.js"
+
+import { ToastContainer } from "react-toastify"
 
 import "./styles/MailContact.scss"
 
@@ -42,8 +45,13 @@ class MainPage extends Component {
 		if (isValid) {
 			axios.post(`${this.state.apiURL}/send-feedback`, {
 				data: data,	})
-				.then(res => {
-					console.log("Toasty!") })
+				.then(response => {
+					displayNotify("success", "Повідомлення надіслано")
+					location.reload() })
+				.catch(error => {
+					displayNotify("error", "Помилка під час відправлення повідомлення") })
+		} else {
+			displayNotify("warn", "Заповніть усі поля")
 		}
 	}
 	render() {
@@ -80,6 +88,7 @@ class MainPage extends Component {
 						<button type="button" className="col-6 offset-3 btn btn-block btn-outline-primary rounded-0" onClick={this.handleSubmit}>Відправити 📧</button>
 					</form>
 				</div>
+				<ToastContainer />
 			</section>
 		)	
 	}
